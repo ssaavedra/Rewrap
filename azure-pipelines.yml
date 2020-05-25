@@ -41,7 +41,8 @@ steps:
     DISPLAY: ':99.0'
 
 - bash: |
-    echo Not yet
+    git tag -d betatest
+    git push --tags
   displayName: Set beta tag
   condition: and(succeeded(), eq(variables['Agent.OS'], 'Windows_NT'))
 
