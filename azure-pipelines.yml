@@ -40,14 +40,21 @@ steps:
   env:
     DISPLAY: ':99.0'
 
+- bash: |
+    echo Not yet
+  displayName: Set beta tag
+  condition: and(succeeded(), eq(variables['Agent.OS'], 'Windows_NT'))
+
 - task: GitHubRelease@1
+  displayName: Beta release
+  condition: eq(variables['Agent.OS'], 'Windows_NT')
   inputs:
     gitHubConnection: 'github.com_stkb'
     repositoryName: 'stkb/Rewrap'
     action: 'create'
     target: '$(Build.SourceVersion)'
     tagSource: 'gitTag'
-    tagPattern: 'test'
+    tagPattern: 'betatest'
     title: 'Test release'
     releaseNotesSource: 'inline'
     releaseNotesInline: 'This is a CI test'
